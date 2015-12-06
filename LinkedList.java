@@ -28,12 +28,19 @@ public class LinkedList<E> {
 		LinkedListNode<E> newNode;
 
 		newNode = new LinkedListNode<E>(element, tail, null);
+		
+		// if it's the first element in the list
+		if (head == null)
+			head = newNode;
 
 		// insert into list
-		tail.next = newNode;
+		if (tail != null)
+			tail.next = newNode;
+
 		tail = newNode;
 
 		// update count
+		System.out.print("add() size++");
 		size++;
 
 		return true;
@@ -71,6 +78,7 @@ public class LinkedList<E> {
 		current.prev = newNode;
 
 		// update count
+		System.out.print("add(int, E) size++");
 		size++;
 	}
 
@@ -187,7 +195,11 @@ public class LinkedList<E> {
 	public int indexOf(Object o) {
 		int index = 0;
 		for (LinkedListNode<E> current = head; current != null; current = current.next) {
-			if (o.equals(current.element))
+			if (o == null) {
+				if (current.element == null)
+					return index;
+				
+			} else if (o.equals(current.element))
 				return index;
 			
 			index++;
