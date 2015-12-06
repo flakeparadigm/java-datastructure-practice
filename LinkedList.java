@@ -1,5 +1,5 @@
 /**
- * A simple LinkedList implementation.
+ * A simple Doubly Linked List implementation.
  * 
  * @author Flakeparadigm
  * 
@@ -28,7 +28,7 @@ public class LinkedList<E> {
 		LinkedListNode<E> newNode;
 
 		newNode = new LinkedListNode<E>(element, tail, null);
-		
+
 		// if it's the first element in the list
 		if (head == null)
 			head = newNode;
@@ -91,8 +91,14 @@ public class LinkedList<E> {
 	public void remove(Object o) {
 		// search for node to remove
 		LinkedListNode<E> current = head;
-		while ((current != null) && o.equals(current.element)) {
-			current = current.next;
+		if (o == null) {
+			while ((current != null) && (current.element != null)) {
+				current = current.next;
+			}
+		} else {
+			while ((current != null) && !o.equals(current.element)) {
+				current = current.next;
+			}
 		}
 
 		removeHelper(current);
@@ -161,6 +167,7 @@ public class LinkedList<E> {
 
 		// remove references to any nodes at head/tail
 		head = tail = null;
+		size = 0;
 	}
 
 	/**
@@ -192,22 +199,37 @@ public class LinkedList<E> {
 		return current.element;
 	}
 
+	/**
+	 * Get the index of the given object in the linked list
+	 * 
+	 * @param o
+	 *            The object to find the index of
+	 * @return The index of the given element as an int. Returns -1 the object
+	 *         is not found in the lined list.
+	 */
 	public int indexOf(Object o) {
 		int index = 0;
 		for (LinkedListNode<E> current = head; current != null; current = current.next) {
 			if (o == null) {
 				if (current.element == null)
 					return index;
-				
+
 			} else if (o.equals(current.element))
 				return index;
-			
+
 			index++;
 		}
 
 		return -1;
 	}
 
+	/**
+	 * Determine whether or not the object exists in the linked list
+	 * 
+	 * @param o
+	 *            The object to test the existence of
+	 * @return Whether or not the object is in the linked list
+	 */
 	public boolean contains(Object o) {
 		return indexOf(o) > -1;
 	}
