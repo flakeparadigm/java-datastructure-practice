@@ -24,7 +24,7 @@ public class LinkedList<E> {
 	 * @param element
 	 *            Object of type E to add to list
 	 */
-	public void add(E element) {
+	public boolean add(E element) {
 		LinkedListNode<E> newNode;
 
 		newNode = new LinkedListNode<E>(element, tail, null);
@@ -35,6 +35,8 @@ public class LinkedList<E> {
 
 		// update count
 		size++;
+
+		return true;
 	}
 
 	/**
@@ -47,7 +49,7 @@ public class LinkedList<E> {
 	 */
 	public void add(int index, E element) {
 		// check constraints
-		if (index > size)
+		if (index > size || index < 0)
 			throw new IndexOutOfBoundsException();
 
 		// do simple add if last element
@@ -78,10 +80,10 @@ public class LinkedList<E> {
 	 * @param element
 	 *            Element to remove from list
 	 */
-	public void remove(E element) {
+	public void remove(Object o) {
 		// search for node to remove
 		LinkedListNode<E> current = head;
-		while ((current != null) && (current.element != element)) {
+		while ((current != null) && o.equals(current.element)) {
 			current = current.next;
 		}
 
@@ -94,7 +96,7 @@ public class LinkedList<E> {
 	 * @param index
 	 */
 	public E remove(int index) {
-		if (index >= size)
+		if (index >= size || index < 0)
 			throw new IndexOutOfBoundsException();
 
 		// search for node to remove
@@ -169,7 +171,7 @@ public class LinkedList<E> {
 	 * @return The element of type E found at the given index
 	 */
 	public E get(int index) {
-		if (index >= size)
+		if (index >= size || index < 0)
 			throw new IndexOutOfBoundsException();
 
 		// search for the element
@@ -180,6 +182,22 @@ public class LinkedList<E> {
 
 		// return it
 		return current.element;
+	}
+
+	public int indexOf(Object o) {
+		int index = 0;
+		for (LinkedListNode<E> current = head; current != null; current = current.next) {
+			if (o.equals(current.element))
+				return index;
+			
+			index++;
+		}
+
+		return -1;
+	}
+
+	public boolean contains(Object o) {
+		return indexOf(o) > -1;
 	}
 
 	/**
