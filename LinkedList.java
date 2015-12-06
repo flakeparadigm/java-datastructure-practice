@@ -93,7 +93,7 @@ public class LinkedList<E> {
 	 * 
 	 * @param index
 	 */
-	public void remove(int index) {
+	public E remove(int index) {
 		if (index >= size)
 			throw new IndexOutOfBoundsException();
 
@@ -103,7 +103,7 @@ public class LinkedList<E> {
 			current = current.next;
 		}
 
-		removeHelper(current);
+		return removeHelper(current);
 	}
 
 	/**
@@ -113,9 +113,9 @@ public class LinkedList<E> {
 	 * @param node
 	 *            The node to be removed from the list.
 	 */
-	private void removeHelper(LinkedListNode<E> node) {
+	private E removeHelper(LinkedListNode<E> node) {
 		if (node == null)
-			return;
+			return null;
 
 		// update its neighbors
 		if (node.next != null)
@@ -124,9 +124,14 @@ public class LinkedList<E> {
 		if (node.prev != null)
 			(node.prev).next = node.next;
 
+		// save the element
+		E element = node.element;
+
 		// erase this node
 		node.destroy();
 		size--;
+
+		return element;
 	}
 
 	/**
@@ -149,7 +154,7 @@ public class LinkedList<E> {
 	}
 
 	/**
-	 * Retreive the size of the linked list
+	 * Retrieve the size of the linked list
 	 * 
 	 * @return The size of the linked list as an int
 	 */
@@ -158,7 +163,7 @@ public class LinkedList<E> {
 	}
 
 	/**
-	 * Retreive the element at the given index
+	 * Retrieve the element at the given index
 	 * 
 	 * @param index
 	 * @return The element of type E found at the given index
@@ -167,12 +172,37 @@ public class LinkedList<E> {
 		if (index >= size)
 			throw new IndexOutOfBoundsException();
 
+		// search for the element
 		LinkedListNode<E> current = head;
 		for (int i = 0; i < index; i++) {
 			current = current.next;
 		}
 
+		// return it
 		return current.element;
+	}
+
+	/**
+	 * Creates and returns an object array of all of the elements stored in the
+	 * linked list.
+	 * 
+	 * @return The array of elements
+	 */
+	public Object[] toArray() {
+		Object[] array = new Object[size];
+		LinkedListNode<E> current = head;
+
+		for (int i = 0; i < size; i++) {
+			// add element to array
+			array[i] = current.element;
+
+			// move to next node, stop if null
+			current = current.next;
+			if (current == null)
+				break;
+		}
+
+		return array;
 	}
 
 	/**
