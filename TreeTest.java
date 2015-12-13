@@ -17,15 +17,15 @@ public class TreeTest {
 	
 	@Test
 	public void testSorting() {
-		for (int i = 0; i < 200; i++) {
-			tree.insert(rand.nextInt(1000), "test");
+		for (int i = 0; i < 1000; i++) {
+			tree.insert(rand.nextInt(10000), "test");
 		}
 
 		String order = tree.toString();
-		String items[] = order.split(",", -1);
+		String items[] = order.split(",");
 
 		for (int i = 1; i < items.length; i++) {
-			if (Integer.parseInt(items[i - 1]) > Integer.parseInt(items[i - 1]))
+			if (Integer.parseInt(items[i-1]) > Integer.parseInt(items[i]))
 				fail();
 		}
 	}
