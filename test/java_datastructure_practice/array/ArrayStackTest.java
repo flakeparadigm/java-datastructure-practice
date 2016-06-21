@@ -1,4 +1,4 @@
-package array;
+package java_datastructure_practice.array;
 
 import static org.junit.Assert.*;
 import org.junit.*;
@@ -62,7 +62,7 @@ public class ArrayStackTest {
 
         assertTrue(s1.isEmpty());
     }
-
+/**
     @Test(expected=IndexOutOfBoundsException.class)
     public void testPushArrayBounds() {
         for (int i = 0; i < initSize+1; i++)
@@ -77,5 +77,5 @@ public class ArrayStackTest {
         for (int i = 0; i < initSize+1; i++);
             s1.pop();
     }
-
+*/
 }

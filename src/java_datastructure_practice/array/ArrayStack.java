@@ -1,4 +1,4 @@
-package array;
+package java_datastructure_practice.array;
 
 /**
  * java-datastructure-practice
@@ -7,23 +7,28 @@ package array;
  */
 public class ArrayStack<T> {
 
-    public ArrayStack(int size) {
+    int top = 0;
+    T[] array;
 
+    public ArrayStack(int capacity) {
+        array = (T[]) new Object[capacity];
     }
 
     public boolean isEmpty() {
-        return false;
+        return top == 0;
     }
 
     public int size() {
-        return 0;
+        return top;
     }
 
     public void push(T element) throws IndexOutOfBoundsException {
-
+        array[top] = element;
+        top++;
     }
 
     public T pop() throws IndexOutOfBoundsException {
-        return null;
+        top--;
+        return array[top];
     }
 }
