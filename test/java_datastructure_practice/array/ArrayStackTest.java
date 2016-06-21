@@ -62,7 +62,7 @@ public class ArrayStackTest {
 
         assertTrue(s1.isEmpty());
     }
-/**
+
     @Test(expected=IndexOutOfBoundsException.class)
     public void testPushArrayBounds() {
         for (int i = 0; i < initSize+1; i++)
@@ -74,8 +74,8 @@ public class ArrayStackTest {
         for (int i = 0; i < initSize; i++)
             s1.push(i);
 
-        for (int i = 0; i < initSize+1; i++);
+        for (int i = 0; i < initSize+1; i++)
             s1.pop();
     }
-*/
+
 }
