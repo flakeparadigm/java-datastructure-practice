@@ -1,5 +1,7 @@
 package java_datastructure_practice.array;
 
+import java.lang.reflect.Array;
+
 /**
  * java-datastructure-practice
  * Tyler Nienhouse (tyler)
@@ -10,8 +12,9 @@ public class ArrayStack<T> {
     private int top = 0;
     private T[] array;
 
-    public ArrayStack(int capacity) {
-        array = (T[]) new Object[capacity];
+    @SuppressWarnings("unchecked")
+    public ArrayStack(Class<T> c, int capacity) {
+        array = (T[]) Array.newInstance(c, capacity);
     }
 
     public boolean isEmpty() {

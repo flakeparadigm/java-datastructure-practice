@@ -16,7 +16,7 @@ public class ArrayStackTest {
 
     @Before
     public void setup() {
-        s1 = new ArrayStack<>(initSize);
+        s1 = new ArrayStack<>(Integer.class, initSize);
     }
 
     @Test

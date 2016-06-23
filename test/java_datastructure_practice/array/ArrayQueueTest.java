@@ -16,7 +16,7 @@ public class ArrayQueueTest {
 
     @Before
     public void setup() {
-        q1 = new ArrayQueue<>(initSize);
+        q1 = new ArrayQueue<>(Integer.class, initSize);
     }
 
     @Test
@@ -96,7 +96,7 @@ public class ArrayQueueTest {
         }
 
         /* overfill when head > tail */
-        q1 = new ArrayQueue<>(initSize);
+        q1 = new ArrayQueue<>(Integer.class, initSize);
         enqueueDequeueHalf();
 
         try {
