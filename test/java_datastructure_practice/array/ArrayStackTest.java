@@ -1,7 +1,8 @@
 package java_datastructure_practice.array;
 
-import static org.junit.Assert.*;
 import org.junit.*;
+
+import static org.junit.Assert.*;
 
 /**
  * java-datastructure-practice
@@ -10,12 +11,12 @@ import org.junit.*;
  */
 public class ArrayStackTest {
 
-    int initSize = 10;
-    ArrayStack<Integer> s1;
+    private int initSize = 10;
+    private ArrayStack<Integer> s1;
 
     @Before
     public void setup() {
-        s1 = new ArrayStack(initSize);
+        s1 = new ArrayStack<>(initSize);
     }
 
     @Test

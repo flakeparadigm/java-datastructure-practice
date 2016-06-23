@@ -7,8 +7,8 @@ package java_datastructure_practice.array;
  */
 public class ArrayStack<T> {
 
-    int top = 0;
-    T[] array;
+    private int top = 0;
+    private T[] array;
 
     public ArrayStack(int capacity) {
         array = (T[]) new Object[capacity];
