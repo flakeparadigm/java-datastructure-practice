@@ -7,16 +7,16 @@ import static org.junit.Assert.*;
 /**
  * java-datastructure-practice
  * Tyler Nienhouse (tyler)
- * 6/21/16
+ * 6/22/16
  */
-public class ArrayQueueTest {
+public class ArrayDequeTest {
 
     private int initSize = 10;
-    private ArrayQueue<Integer> q1;
+    private ArrayDeque<Integer> q1;
 
     @Before
     public void setup() {
-        q1 = new ArrayQueue<>(Integer.class, initSize);
+        q1 = new ArrayDeque<>(Integer.class, initSize);
     }
 
     @Test
@@ -25,41 +25,41 @@ public class ArrayQueueTest {
     }
 
     @Test
-    public void testEnqueue() {
+    public void testEnqueueBack() {
         /* test single enqueueBack */
-        q1.enqueue(0);
+        q1.enqueueBack(0);
         assertFalse(q1.isEmpty());
         assertEquals(q1.size(), 1);
 
-        /* test multiple enqueues */
+        /* test multiple enqueueBacks */
         for (int i = 1; i < initSize; i++)
-            q1.enqueue(i);
+            q1.enqueueBack(i);
 
         assertFalse(q1.isEmpty());
         assertEquals(q1.size(), initSize);
     }
 
     @Test
-    public void testDequeue() {
+    public void testDequeueFront() {
         /* test single dequeueFront */
-        q1.enqueue(0);
-        assertEquals((int) q1.dequeue(), 0);
+        q1.enqueueBack(0);
+        assertEquals((int) q1.dequeueFront(), 0);
         assertTrue(q1.isEmpty());
         assertEquals(q1.size(), 0);
 
-        /* test multiple dequeues */
+        /* test multiple dequeueFronts */
         for (int i = 0; i < initSize-1; i++)
-            q1.enqueue(i);
+            q1.enqueueBack(i);
 
-        assertEquals((int) q1.dequeue(), 0);
+        assertEquals((int) q1.dequeueFront(), 0);
         assertEquals(q1.size(), initSize-2);
 
-        assertEquals((int) q1.dequeue(), 1);
+        assertEquals((int) q1.dequeueFront(), 1);
         assertEquals(q1.size(), initSize-3);
 
-        /* test dequeueing all */
+        /* test dequeueFronting all */
         for (int i = 2; i < initSize-1; i++)
-            assertEquals((int) q1.dequeue(), i);
+            assertEquals((int) q1.dequeueFront(), i);
 
         assertTrue(q1.isEmpty());
     }
@@ -71,24 +71,24 @@ public class ArrayQueueTest {
 
         /* en/dequeueFront whole capacity */
         for (int i = 0; i < initSize; i++)
-            q1.enqueue(i);
+            q1.enqueueBack(i);
 
         assertEquals(q1.size(), initSize);
 
         for (int i = 0; i < initSize; i++) {
             assertEquals(q1.size(), initSize-i);
-            assertEquals((int) q1.dequeue(), i);
+            assertEquals((int) q1.dequeueFront(), i);
         }
 
         assertEquals(q1.size(), 0);
     }
 
     @Test
-    public void testEnqueueArrayBounds() {
+    public void testEnqueueArrayBounds1() {
         /* overfill to end of array */
         try {
             for (int i = 0; i < initSize + 1; i++)
-                q1.enqueue(i);
+                q1.enqueueBack(i);
 
             Assert.fail();
         } catch (IndexOutOfBoundsException e) {
@@ -96,12 +96,12 @@ public class ArrayQueueTest {
         }
 
         /* overfill when head > tail */
-        q1 = new ArrayQueue<>(Integer.class, initSize);
+        q1 = new ArrayDeque<>(Integer.class, initSize);
         enqueueDequeueHalf();
 
         try {
             for (int i = 0; i < initSize + 1; i++)
-                q1.enqueue(i);
+                q1.enqueueBack(i);
 
             Assert.fail();
         } catch (IndexOutOfBoundsException e) {
@@ -113,17 +113,17 @@ public class ArrayQueueTest {
     public void testDequeueArrayBounds() {
         /* dequeueFront more than we enqueued */
         for (int i = 0; i < initSize/2; i++)
-            q1.enqueue(i);
+            q1.enqueueBack(i);
 
         for (int i = 0; i < (initSize/2)+1; i++)
-            q1.dequeue();
+            q1.dequeueFront();
     }
 
     private void enqueueDequeueHalf() {
         /* en/dequeueFront half of the size1 */
         for (int i = 0; i < initSize/2; i++) {
-            q1.enqueue(i);
-            q1.dequeue();
+            q1.enqueueBack(i);
+            q1.dequeueFront();
         }
         assertEquals(q1.size(), 0);
     }

@@ -26,7 +26,7 @@ public class ArrayStackTest {
 
     @Test
     public void testPush() {
-        /* test single push */
+        /* test single push1 */
         s1.push(0);
         assertFalse(s1.isEmpty());
         assertEquals(s1.size(), 1);
@@ -41,7 +41,7 @@ public class ArrayStackTest {
 
     @Test
     public void testPop() {
-        /* test single pop */
+        /* test single pop1 */
         s1.push(0);
         assertEquals((int) s1.pop(), 0);
         assertTrue(s1.isEmpty());
@@ -59,7 +59,7 @@ public class ArrayStackTest {
 
         /* test popping all */
         for (int i = initSize-2; i > 0; i--)
-            s1.pop();
+            assertEquals((int) s1.pop(), i-1);
 
         assertTrue(s1.isEmpty());
     }

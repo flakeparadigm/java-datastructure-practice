@@ -14,7 +14,7 @@ public class ArrayQueue<T> {
 
     @SuppressWarnings("unchecked")
     public ArrayQueue(Class<T> c, int capacity) {
-        array = (T[]) Array.newInstance(c, capacity);
+        array = (T[]) Array.newInstance(c, capacity+1);
     }
 
     public boolean isEmpty() {
