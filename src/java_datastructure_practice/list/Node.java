@@ -12,6 +12,9 @@ class Node<T> {
     /**
      * Initializes a LinkedListNode with the given information. May be null.
      */
+    public Node(T element, Node<T> next) {
+        this(element, null, next);
+    }
     public Node(T element, Node<T> prev, Node<T> next) {
         this.element = element;
         this.prev = prev;

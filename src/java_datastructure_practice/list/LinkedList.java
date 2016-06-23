@@ -26,25 +26,8 @@ public class LinkedList<E> {
      * @param element
      *            Object of type E to add to list
      */
-    public boolean add(E element) {
-        Node<E> newNode;
-
-        newNode = new Node<E>(element, tail, null);
-
-        // if it's the first element in the list
-        if (head == null)
-            head = newNode;
-
-        // insert into list
-        if (tail != null)
-            tail.next = newNode;
-
-        tail = newNode;
-
-        // update count
-        size++;
-
-        return true;
+    public void add(E element) {
+        insertAtNode(element, null);
     }
 
     /**
@@ -67,19 +50,9 @@ public class LinkedList<E> {
         }
 
         // find location to add element
-        Node<E> newNode, current = head;
-        for (int i = 0; i < index; i++) {
-            current = current.next;
-        }
+        Node<E> location = traverseToIndex(index);
 
-        newNode = new Node<E>(element, current.prev, current);
-
-        // insert into list
-        (current.prev).next = newNode;
-        current.prev = newNode;
-
-        // update count
-        size++;
+        insertAtNode(element, location);
     }
 
     /**
@@ -114,40 +87,8 @@ public class LinkedList<E> {
             throw new IndexOutOfBoundsException();
 
         // search for node to remove
-        Node<E> current = head;
-        for (int i = 0; i < index; i++) {
-            current = current.next;
-        }
-
+        Node<E> current = traverseToIndex(index);
         return removeHelper(current);
-    }
-
-    /**
-     * Private method used to remove a specified node. Used by search functions
-     * to do actual removal.
-     *
-     * @param node
-     *            The node to be removed from the list.
-     */
-    private E removeHelper(Node<E> node) {
-        if (node == null)
-            return null;
-
-        // update its neighbors
-        if (node.next != null)
-            (node.next).prev = node.prev;
-
-        if (node.prev != null)
-            (node.prev).next = node.next;
-
-        // save the element
-        E element = node.element;
-
-        // erase this node
-        node.destroy();
-        size--;
-
-        return element;
     }
 
     /**
@@ -255,5 +196,77 @@ public class LinkedList<E> {
         }
 
         return array;
+    }
+
+    private void insertAtNode(E element, Node<E> location) {
+        Node<E> newNode;
+
+        if (location == null){
+            /* location not supplied */
+            if (tail == null) {
+                /* start the list */
+                newNode = new Node<>(element, null, null);
+                head = tail = newNode;
+
+            } else {
+                /* insert at tail */
+                newNode = new Node<>(element, tail, null);
+                tail.next = newNode;
+                tail = newNode;
+            }
+
+        } else {
+            /* copy old node into new one */
+            newNode = new Node<>(location.element, location, location.next);
+
+            /* overwrite with new data */
+            location.element = element;
+            location.next = newNode;
+        }
+
+        size++;
+    }
+
+    /**
+     * Private method used to traverse to a specified index on the list
+     *
+     * @param index
+     *            The index to traverse to
+     */
+    private Node<E> traverseToIndex(int index) {
+        Node<E> current = head;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+
+        return current;
+    }
+
+    /**
+     * Private method used to remove a specified node. Used by search functions
+     * to do actual removal.
+     *
+     * @param node
+     *            The node to be removed from the list.
+     */
+    private E removeHelper(Node<E> node) {
+        if (node == null)
+            return null;
+
+        // update its neighbors
+        if (node.next != null)
+            (node.next).prev = node.prev;
+
+        if (node.prev != null)
+            (node.prev).next = node.next;
+
+        // save the element
+        E element = node.element;
+
+        // erase this node
+        node.destroy();
+        size--;
+
+        return element;
     }
 }
